@@ -1,0 +1,14 @@
+#!/bin/bash
+# type of omp parallel
+array=( dynamic static )
+for s in "${array[@]}"
+do
+	echo NUMNODES = $s
+	# number of threads:
+    for t in 1 2 4
+	do
+        echo NUMT = $t
+		gcc-7 -DSCHEDULETYPE=$s -DNUMT=$t Proj2.cpp -o prog -lm -fopenmp
+		./prog
+	done
+done
