@@ -38,28 +38,29 @@ int main( int argc, char *argv[ ] )
         int someBigNumber = 1000000000;
         double time0 = omp_get_wtime( );
     
-#pragma omp parallel for
+        float tmp;
+#pragma omp parallel for private(tmp)
         for( int i = 0; i < 4; i++ )
         {
-            
-             for( int j = 0; j < someBigNumber; j++ )
-             {
-             Array[ i ].value = Array[ i ].value + 2.;
-             }
-        }
-        
-/*#pragma omp parallel for
-        for( int i = 0; i < 4; i++ )
-        {
-            float tmp = Array[i].value;
+            tmp = Array[i].value;
             for( int j = 0; j < someBigNumber; j++ )
             {
-                tmp = tmp + (float)rand( );
+                tmp = tmp + 2;
             }
             Array[i].value = tmp;
-        }*/
+        }
 
          double time1 = omp_get_wtime( );
+        
+        /*#pragma omp parallel for
+         for( int i = 0; i < 4; i++ )
+         {
+         
+         for( int j = 0; j < someBigNumber; j++ )
+         {
+         Array[ i ].value = Array[ i ].value + 2.;
+         }
+         }*/
         
          // print performance here:::
         double megaCalcs = (double)(someBigNumber)/(time1-time0)/1000000.;

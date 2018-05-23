@@ -1,0 +1,4 @@
+#!/bin/bash
+# number of threads:
+g++-7 Proj4.cpp -o prog -lm -fopenmp
+./prog
